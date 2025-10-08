@@ -1,0 +1,56 @@
+---
+title: "WDI Presentation"
+author: "Pak Huen Myron Ngan"
+format:
+  revealjs:
+    theme: solarized
+    transition: fade
+execute:
+  echo: false
+---
+
+
+## Introduction
+This presentation summarises key insights from the WDI dataset.
+
+---
+
+## Key Indicators
+We focused on GDP per capita, life expectancy, and inflation rate.
+
+---
+
+## Visuals
+
+```{python}
+#| label: setup
+#| echo: false
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# adjust the path if your CSV is elsewhere
+wdi = pd.read_csv("wdi.csv")
+
+```
+
+```{python}
+#| echo: false
+import matplotlib.pyplot as plt
+wdi['inflation_rate'].dropna().hist(bins=30)
+plt.title("Inflation Rate Histogram")
+plt.xlabel("Inflation rate (%)")
+plt.ylabel("Count")
+plt.tight_layout()
+```
+
+```{python}
+#| echo: false
+plt.figure()
+plt.scatter(wdi['gdp_per_capita'], wdi['life_expectancy'], alpha=0.6)
+plt.title("Life Expectancy vs GDP per Capita")
+plt.xlabel("GDP per capita (USD)")
+plt.ylabel("Life expectancy (years)")
+plt.tight_layout()
+```
+
+

@@ -1,0 +1,87 @@
+---
+title: "QTM350_Assignment5"
+author: "Pak Huen Myron Ngan"
+date: today
+format:
+  html:
+    toc: true
+    code-fold: true
+  pdf:
+    toc: true
+bibliography: refs.bib
+
+execute:
+  echo: true
+  warning: false
+  message: false
+  
+---
+
+```{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+wdi = pd.read_csv("wdi.csv")
+wdi.head()
+```
+
+```{python}
+eda = wdi[['gdp_per_capita','life_expectancy','inflation_rate']].agg(
+    ['count','mean','median','std','min','max']
+).T
+eda
+```
+
+```{python}
+#| echo: false
+#| label: fig-inflation
+#| fig-cap: "Distribution of inflation rates."
+wdi['inflation_rate'].dropna().hist(bins=30)
+plt.title("Inflation Rate Histogram")
+plt.xlabel("Inflation rate (%)")
+plt.ylabel("Count")
+plt.tight_layout()
+
+```
+
+
+```{python}
+#| echo: false
+#| label: fig-gdp-life
+#| fig-cap: "Life expectancy vs GDP per capita."
+x = wdi['gdp_per_capita']
+y = wdi['life_expectancy']
+plt.figure()
+plt.scatter(x, y, alpha=0.6)
+plt.title("Life Expectancy vs GDP per Capita")
+plt.xlabel("GDP per capita (USD)")
+plt.ylabel("Life expectancy (years)")
+plt.tight_layout()
+```
+
+
+```{python}
+#| label: tbl-key
+#| tbl-cap: "Key statistics."
+#| echo: false
+
+import pandas as pd
+
+key_stats = pd.DataFrame({
+    "Statistic": [
+        "GDP per capita (mean)",
+        "Life expectancy (mean)",
+        "Inflation (mean %)"
+    ],
+    "Value": [
+        wdi["gdp_per_capita"].mean(skipna=True),
+        wdi["life_expectancy"].mean(skipna=True),
+        wdi["inflation_rate"].mean(skipna=True)
+    ]
+})
+
+key_stats
+```
+
+As shown in @fig-inflation, inflation rates vary widely across countries. 
+Similarly, @fig-gdp-life shows a clear positive relationship between GDP per capita and life expectancy.  
+The summary of statistics in @tbl-key highlights the central tendencies for these indicators.

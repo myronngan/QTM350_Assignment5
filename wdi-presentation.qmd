@@ -5,6 +5,7 @@ format:
   revealjs:
     theme: solarized
     transition: fade
+    embed-resources: true
 execute:
   echo: false
 ---
@@ -31,10 +32,6 @@ import matplotlib.pyplot as plt
 # adjust the path if your CSV is elsewhere
 wdi = pd.read_csv("wdi.csv")
 
-```
-
-```{python}
-#| echo: false
 import matplotlib.pyplot as plt
 wdi['inflation_rate'].dropna().hist(bins=30)
 plt.title("Inflation Rate Histogram")
